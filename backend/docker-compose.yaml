@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+    app:
+        build: .
+        ports:
+            - 3000:3000
+        volumes:
+            - .:/usr/app
+        command: npm run start:dev
+    db:
+        image: postgres
+        restart: always
+        volumes:
+            - ./.docker/data:/var/lib/postgres/data
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root
+        ports:
+            - "5432:5432"
