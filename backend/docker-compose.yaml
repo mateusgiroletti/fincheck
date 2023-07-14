@@ -14,7 +14,7 @@ services:
         volumes:
             - ./.docker/data:/var/lib/postgres/data
         environment:
-            - POSTGRES_USER=root
-            - POSTGRES_PASSWORD=root
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
         ports:
             - "5432:5432"
