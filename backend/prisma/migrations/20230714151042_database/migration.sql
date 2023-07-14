@@ -29,10 +29,11 @@ CREATE TABLE "banck_account" (
 -- CreateTable
 CREATE TABLE "category" (
     "id" UUID NOT NULL,
-    "user_id" UUID NOT NULL,
+    "user_id" UUID,
     "name" TEXT NOT NULL,
     "icon" TEXT NOT NULL,
     "type" "transaction_type" NOT NULL,
+    "isCustom" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "category_pkey" PRIMARY KEY ("id")
 );
