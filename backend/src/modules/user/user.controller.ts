@@ -7,8 +7,6 @@ export class UserController {
 
     @Get('/me')
     me(@Req() request: any) {
-        console.log({ meUserId: request.userId });
-
-        return this.userService.getUserById('userId');
+        return this.userService.getUserById(request.userId);
     }
 }

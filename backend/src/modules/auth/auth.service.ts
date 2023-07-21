@@ -3,16 +3,16 @@ import {
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
-import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SigninDto } from './dto/signin';
 import { SignupDto } from './dto/signup';
+import { UserRepository } from 'src/shared/database/repositories/user.repositories';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private readonly usersRepo: UsersRepository,
+        private readonly usersRepo: UserRepository,
         private readonly jwtService: JwtService,
     ) {}
 
