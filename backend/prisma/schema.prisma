@@ -12,13 +12,13 @@ datasource db {
 }
 
 model User {
-    id           String         @id @default(uuid()) @db.Uuid
-    name         String
-    email        String         @unique
-    password     String
-    BanckAccount BanckAccount[]
-    Category     Category[]
-    Transaction  Transaction[]
+    id          String        @id @default(uuid()) @db.Uuid
+    name        String
+    email       String        @unique
+    password    String
+    BankAccount BankAccount[]
+    Category    Category[]
+    Transaction Transaction[]
 
     @@map("user")
 }
@@ -31,7 +31,7 @@ enum BankAccountType {
     @@map("bank_account_tpye")
 }
 
-model BanckAccount {
+model BankAccount {
     id             String          @id @default(uuid()) @db.Uuid
     userId         String          @map("user_id") @db.Uuid
     name           String
@@ -42,7 +42,7 @@ model BanckAccount {
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     Transaction Transaction[]
 
-    @@map("banck_account")
+    @@map("bank_account")
 }
 
 enum TransactionType {
@@ -76,9 +76,9 @@ model Transaction {
     date          DateTime
     type          TransactionType
 
-    user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    bankAccount BanckAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
-    category    Category?    @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+    category    Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
     @@map("transaction")
 }

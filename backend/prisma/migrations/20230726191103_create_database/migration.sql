@@ -15,7 +15,7 @@ CREATE TABLE "user" (
 );
 
 -- CreateTable
-CREATE TABLE "banck_account" (
+CREATE TABLE "bank_account" (
     "id" UUID NOT NULL,
     "user_id" UUID NOT NULL,
     "name" TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE "banck_account" (
     "type" "bank_account_tpye" NOT NULL,
     "color" TEXT NOT NULL,
 
-    CONSTRAINT "banck_account_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "bank_account_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -56,7 +56,7 @@ CREATE TABLE "transaction" (
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- AddForeignKey
-ALTER TABLE "banck_account" ADD CONSTRAINT "banck_account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "bank_account" ADD CONSTRAINT "bank_account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "category" ADD CONSTRAINT "category_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -65,7 +65,7 @@ ALTER TABLE "category" ADD CONSTRAINT "category_user_id_fkey" FOREIGN KEY ("user
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "transaction" ADD CONSTRAINT "transaction_bank_account_id_fkey" FOREIGN KEY ("bank_account_id") REFERENCES "banck_account"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "transaction" ADD CONSTRAINT "transaction_bank_account_id_fkey" FOREIGN KEY ("bank_account_id") REFERENCES "bank_account"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
