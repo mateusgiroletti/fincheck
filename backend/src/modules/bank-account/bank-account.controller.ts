@@ -6,8 +6,11 @@ import {
     Param,
     Delete,
     Put,
+    ParseUUIDPipe,
+    HttpCode,
+    HttpStatus,
 } from '@nestjs/common';
-import { BankAccountService } from './bank-account.service';
+import { BankAccountService } from './services/bank-account.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 import { LoggedUserId } from 'src/shared/decorators/LoggedUserId';
@@ -25,25 +28,29 @@ export class BankAccountController {
     }
 
     @Get()
-    findAll() {
-        return this.bankAccountService.findAll();
+    findAllByUserId(@LoggedUserId() userId: string) {
+        return this.bankAccountService.findAllByUserId(userId);
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.bankAccountService.findOne(+id);
-    }
-
-    @Put(':id')
+    @Put(':bankAccountId')
     update(
-        @Param('id') id: string,
+        @LoggedUserId() userId: string,
+        @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
         @Body() updateBankAccountDto: UpdateBankAccountDto,
     ) {
-        return this.bankAccountService.update(+id, updateBankAccountDto);
+        return this.bankAccountService.update(
+            userId,
+            String(bankAccountId),
+            updateBankAccountDto,
+        );
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.bankAccountService.remove(+id);
+    @Delete(':bankAccountId')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    remove(
+        @LoggedUserId() userId: string,
+        @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
+    ) {
+        return this.bankAccountService.remove(userId, bankAccountId);
     }
 }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BankAccountController } from './bank-account.controller';
-import { BankAccountService } from './bank-account.service';
+import { BankAccountService } from './services/bank-account.service';
 
 describe('BankAccountController', () => {
   let controller: BankAccountController;
