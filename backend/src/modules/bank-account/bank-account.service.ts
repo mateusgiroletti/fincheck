@@ -8,10 +8,15 @@ export class BankAccountService {
     constructor(private readonly bankAccountRepo: BankAccountRepository) {}
 
     create(userId: string, createBankAccountDto: CreateBankAccountDto) {
+        const { color, initialBalance, name, type } = createBankAccountDto;
+
         return this.bankAccountRepo.create({
             data: {
-                ...createBankAccountDto,
                 userId,
+                color,
+                initialBalance,
+                name,
+                type,
             },
         });
     }
