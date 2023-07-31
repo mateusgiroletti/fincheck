@@ -67,8 +67,14 @@ export class TransactionService {
         });
     }
 
-    remove(id: number) {
-        return `This action removes a #${id} transaction`;
+    async remove(userId: string, transactionId: string) {
+        await this.validateEntitiesOwnership({ userId, transactionId });
+
+        await this.transactionRepo.delete({
+            where: { id: transactionId },
+        });
+
+        return null;
     }
 
     private async validateEntitiesOwnership({
@@ -78,8 +84,8 @@ export class TransactionService {
         transactionId,
     }: {
         userId: string;
-        bankAccountId: string;
-        categoryId: string;
+        bankAccountId?: string;
+        categoryId?: string;
         transactionId?: string;
     }) {
         await Promise.all([
@@ -88,11 +94,16 @@ export class TransactionService {
                     userId,
                     transactionId,
                 ),
-            this.validateBankAccountOwnershioService.validate(
-                userId,
-                bankAccountId,
-            ),
-            this.validateCategoryOwnershipService.validate(userId, categoryId),
+            bankAccountId &&
+                this.validateBankAccountOwnershioService.validate(
+                    userId,
+                    bankAccountId,
+                ),
+            categoryId &&
+                this.validateCategoryOwnershipService.validate(
+                    userId,
+                    categoryId,
+                ),
         ]);
     }
 }
