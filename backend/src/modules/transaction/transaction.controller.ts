@@ -3,11 +3,12 @@ import {
     Get,
     Post,
     Body,
-    Patch,
     Param,
     Delete,
+    Put,
+    ParseUUIDPipe,
 } from '@nestjs/common';
-import { TransactionService } from './transaction.service';
+import { TransactionService } from './services/transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { LoggedUserId } from 'src/shared/decorators/LoggedUserId';
@@ -34,12 +35,17 @@ export class TransactionController {
         return this.transactionService.findOne(+id);
     }
 
-    @Patch(':id')
+    @Put(':transactionId')
     update(
-        @Param('id') id: string,
+        @LoggedUserId() userId: string,
+        @Param('transactionId', ParseUUIDPipe) transactionId: string,
         @Body() updateTransactionDto: UpdateTransactionDto,
     ) {
-        return this.transactionService.update(+id, updateTransactionDto);
+        return this.transactionService.update(
+            userId,
+            transactionId,
+            updateTransactionDto,
+        );
     }
 
     @Delete(':id')
