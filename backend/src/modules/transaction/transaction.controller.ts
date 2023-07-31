@@ -9,6 +9,8 @@ import {
     ParseUUIDPipe,
     HttpCode,
     HttpStatus,
+    Query,
+    ParseIntPipe,
 } from '@nestjs/common';
 import { TransactionService } from './services/transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -28,8 +30,12 @@ export class TransactionController {
     }
 
     @Get()
-    findAll() {
-        return this.transactionService.findAll();
+    findAll(
+        @LoggedUserId() userId: string,
+        @Query('month', ParseIntPipe) month: number,
+        @Query('year', ParseIntPipe) year: number,
+    ) {
+        return this.transactionService.findAllByUserId(userId, { month, year });
     }
 
     @Get(':id')

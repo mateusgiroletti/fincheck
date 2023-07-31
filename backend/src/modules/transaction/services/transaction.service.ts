@@ -38,8 +38,16 @@ export class TransactionService {
         });
     }
 
-    findAll() {
-        return `This action returns all transaction`;
+    findAllByUserId(userId: string, filters: { month: number; year: number }) {
+        return this.transactionRepo.findMany({
+            where: {
+                userId,
+                date: {
+                    gte: new Date(Date.UTC(filters.year, filters.month)),
+                    lt: new Date(Date.UTC(filters.year, filters.month + 1)),
+                },
+            },
+        });
     }
 
     findOne(id: number) {
