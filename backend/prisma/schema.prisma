@@ -16,9 +16,9 @@ model User {
     name        String
     email       String        @unique
     password    String
-    BankAccount BankAccount[]
-    Category    Category[]
-    Transaction Transaction[]
+    bankAccount BankAccount[]
+    category    Category[]
+    transaction Transaction[]
 
     @@map("user")
 }
@@ -40,7 +40,7 @@ model BankAccount {
     color          String
 
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-    Transaction Transaction[]
+    transaction Transaction[]
 
     @@map("bank_account")
 }
@@ -61,7 +61,7 @@ model Category {
     isCustom Boolean         @default(false)
 
     user        User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    Transaction Transaction[]
+    transaction Transaction[]
 
     @@map("category")
 }

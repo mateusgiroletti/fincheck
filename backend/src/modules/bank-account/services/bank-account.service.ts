@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { BankAccountsRepository } from '../../../shared/database/repositories/bank-account.repositorie';
+import { BankAccountRepository } from '../../../shared/database/repositories/bank-account.repositorie';
 import { CreateBankAccountDto } from '../dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from '../dto/update-bank-account.dto';
 import { ValidateBankAccountOwnershipService } from './validate-bank-account-ownership.service';
 
 @Injectable()
-export class BankAccountsService {
+export class BankAccountService {
     constructor(
-        private readonly bankAccountsRepo: BankAccountsRepository,
+        private readonly bankAccountsRepo: BankAccountRepository,
         private readonly validateBankAccountOwnershipService: ValidateBankAccountOwnershipService,
-    ) {}
+    ) { }
 
     create(userId: string, createBankAccountDto: CreateBankAccountDto) {
         const { color, initialBalance, name, type } = createBankAccountDto;
@@ -29,19 +29,17 @@ export class BankAccountsService {
         const bankAccounts = await this.bankAccountsRepo.findMany({
             where: { userId },
             include: {
-                user: true,
-                Transaction: {
+                transaction: {
                     select: {
                         type: true,
                         value: true,
-                        id: true,
                     },
                 },
             },
         });
 
-        return bankAccounts.map(({ Transaction, ...bankAccount }) => {
-            const totalTransactions = Transaction.reduce(
+        return bankAccounts.map(({ transaction, ...bankAccount }) => {
+            const totalTransactions = transaction.reduce(
                 (acc, transaction) =>
                     acc +
                     (transaction.type === 'INCOME'
@@ -54,7 +52,7 @@ export class BankAccountsService {
                 bankAccount.initialBalance + totalTransactions;
 
             return {
-                ...bankAccounts,
+                ...bankAccount,
                 currentBalance,
             };
         });
