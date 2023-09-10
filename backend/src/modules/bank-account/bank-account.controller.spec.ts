@@ -3,18 +3,18 @@ import { BankAccountController } from './bank-account.controller';
 import { BankAccountService } from './services/bank-account.service';
 
 describe('BankAccountController', () => {
-  let controller: BankAccountController;
+    let controller: BankAccountController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [BankAccountController],
-      providers: [BankAccountService],
-    }).compile();
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            controllers: [BankAccountController],
+            providers: [BankAccountService],
+        }).compile();
 
-    controller = module.get<BankAccountController>(BankAccountController);
-  });
+        controller = module.get<BankAccountController>(BankAccountController);
+    });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+    it('should be defined', () => {
+        expect(controller).toBeDefined();
+    });
 });

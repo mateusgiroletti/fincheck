@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class BankAccountRepository {
-    constructor(private readonly prismaService: PrismaService) { }
+    constructor(private readonly prismaService: PrismaService) {}
 
     findMany<T extends Prisma.BankAccountFindManyArgs>(
         findManyDto: Prisma.SelectSubset<T, Prisma.BankAccountFindManyArgs>,

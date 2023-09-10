@@ -9,7 +9,7 @@ export class BankAccountService {
     constructor(
         private readonly bankAccountsRepo: BankAccountRepository,
         private readonly validateBankAccountOwnershipService: ValidateBankAccountOwnershipService,
-    ) { }
+    ) {}
 
     create(userId: string, createBankAccountDto: CreateBankAccountDto) {
         const { color, initialBalance, name, type } = createBankAccountDto;
