@@ -35,7 +35,7 @@ describe('UserController', () => {
     });
 
     describe('me', () => {
-        it('should return user', async () => {
+        it('should return user informations', async () => {
             // Mock the LoggedUserId decorator
             const loggedUserIdDecorator = jest.fn().mockReturnValue(userId);
 
