@@ -11,6 +11,9 @@ describe('UserController', () => {
     const userId = 'testUserId';
     const user = { id: userId, name: 'Test User' };
 
+    // Mock the LoggedUserId decorator
+    const loggedUserIdDecorator = jest.fn().mockReturnValue(userId);
+
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [UserController],
@@ -36,9 +39,6 @@ describe('UserController', () => {
 
     describe('me', () => {
         it('should return user informations', async () => {
-            // Mock the LoggedUserId decorator
-            const loggedUserIdDecorator = jest.fn().mockReturnValue(userId);
-
             // Call the controller method
             const result = await userController.me(loggedUserIdDecorator());
 
@@ -46,6 +46,16 @@ describe('UserController', () => {
             expect(result).toEqual(user);
             expect(loggedUserIdDecorator).toHaveBeenCalled();
             expect(userService.getUserById).toHaveBeenCalledWith(userId);
+        });
+
+        it('should throw an exception', () => {
+            jest.spyOn(userService, 'getUserById').mockRejectedValueOnce(
+                new Error(),
+            );
+
+            expect(
+                userController.me(loggedUserIdDecorator()),
+            ).rejects.toThrowError();
         });
     });
 });
