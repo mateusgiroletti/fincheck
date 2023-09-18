@@ -4,6 +4,8 @@ import { PrismaService } from '../../shared/database/prisma.service';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
+import { SigninDto } from './dto/signin';
+import { SignupDto } from './dto/signup';
 
 describe('AuthController', () => {
     let authController: AuthController;
@@ -38,15 +40,18 @@ describe('AuthController', () => {
     });
 
     describe('signin', () => {
-        const userLogin = { email: 'test@email.com', password: '1234568' };
+        const signinDto: SigninDto = {
+            email: 'test@mail.com',
+            password: 'password',
+        };
 
         it('should return a jwt token', async () => {
             // Call the controller method
-            const result = await authController.signin(userLogin);
+            const result = await authController.signin(signinDto);
 
             // Assert the result
             expect(result).toEqual(token);
-            expect(authService.signin).toHaveBeenCalledWith(userLogin);
+            expect(authService.signin).toHaveBeenCalledWith(signinDto);
         });
 
         it('should throw an exception', () => {
@@ -54,24 +59,24 @@ describe('AuthController', () => {
                 new Error(),
             );
 
-            expect(authController.signin(userLogin)).rejects.toThrowError();
+            expect(authController.signin(signinDto)).rejects.toThrowError();
         });
     });
 
     describe('signup', () => {
-        const newUser = {
-            name: 'testing',
-            email: 'test@email.com',
-            password: '1234568',
+        const signupDto: SignupDto = {
+            name: 'test',
+            email: 'test@mail.com',
+            password: 'password',
         };
 
         it('should return a jwt token', async () => {
             // Call the controller method
-            const result = await authController.create(newUser);
+            const result = await authController.create(signupDto);
 
             // Assert the result
             expect(result).toEqual(token);
-            expect(authService.signup).toHaveBeenCalledWith(newUser);
+            expect(authService.signup).toHaveBeenCalledWith(signupDto);
         });
 
         it('should throw an exception', () => {
@@ -79,7 +84,7 @@ describe('AuthController', () => {
                 new Error(),
             );
 
-            expect(authController.create(newUser)).rejects.toThrowError();
+            expect(authController.create(signupDto)).rejects.toThrowError();
         });
     });
 });
