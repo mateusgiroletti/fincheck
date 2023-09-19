@@ -60,5 +60,13 @@ describe('CategoryController', () => {
             expect(result).toEqual(categories);
             expect(categoryService.findAll).toHaveBeenCalledTimes(1);
         });
+
+        it('should throw an exception', () => {
+            jest.spyOn(categoryService, 'findAll').mockRejectedValueOnce(
+                new Error(),
+            );
+
+            expect(categoryController.findAll()).rejects.toThrowError();
+        });
     });
 });
