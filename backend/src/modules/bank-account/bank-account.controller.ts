@@ -13,7 +13,7 @@ import {
 import { BankAccountService } from './services/bank-account.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
-import { LoggedUserId } from 'src/shared/decorators/LoggedUserId';
+import { LoggedUserId } from '../../shared/decorators/LoggedUserId';
 
 @Controller('bank-account')
 export class BankAccountController {
