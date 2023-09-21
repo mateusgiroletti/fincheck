@@ -5,14 +5,23 @@ import { BankAccountRepository } from '../../shared/database/repositories/bank-a
 import { PrismaService } from '../../shared/database/prisma.service';
 import { BankAccountType } from './entities/BankAccount';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
+import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 
 describe('BankAccountController', () => {
     let bankAccountController: BankAccountController;
     let bankAccountService: BankAccountService;
 
     const userId = 'testUserId';
+    const bankAccountId = 'testBankAccountId';
 
     const bankAccountDto: CreateBankAccountDto = {
+        color: '#FFF',
+        initialBalance: 50,
+        name: 'bank',
+        type: BankAccountType.CHECKING,
+    };
+
+    const bankAccountUpdateDto: UpdateBankAccountDto = {
         color: '#FFF',
         initialBalance: 50,
         name: 'bank',
@@ -37,6 +46,9 @@ describe('BankAccountController', () => {
                         findAllByUserId: jest
                             .fn()
                             .mockResolvedValue(returnGetBankAccounByUserId),
+                        update: jest
+                            .fn()
+                            .mockResolvedValue(bankAccountUpdateDto),
                     },
                 },
                 BankAccountRepository,
@@ -97,6 +109,35 @@ describe('BankAccountController', () => {
 
             expect(
                 bankAccountController.create(userId, bankAccountDto),
+            ).rejects.toThrowError();
+        });
+    });
+
+    describe('put', () => {
+        it('should update a bank account and return your data', async () => {
+            // Call the controller method
+            const result = await bankAccountController.update(
+                userId,
+                bankAccountId,
+                bankAccountUpdateDto,
+            );
+
+            // Assert the result
+            expect(result).toEqual(bankAccountUpdateDto);
+            expect(bankAccountService.update).toHaveBeenCalledTimes(1);
+        });
+
+        it('should throw an exception', () => {
+            jest.spyOn(bankAccountService, 'update').mockRejectedValueOnce(
+                new Error(),
+            );
+
+            expect(
+                bankAccountController.update(
+                    userId,
+                    bankAccountId,
+                    bankAccountUpdateDto,
+                ),
             ).rejects.toThrowError();
         });
     });
