@@ -19,6 +19,13 @@ describe('BankAccountController', () => {
         type: BankAccountType.CHECKING,
     };
 
+    const currentBalance = 50000;
+
+    const returnGetBankAccounByUserId = {
+        ...bankAccountDto,
+        currentBalance,
+    };
+
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [BankAccountController],
@@ -27,6 +34,9 @@ describe('BankAccountController', () => {
                     provide: BankAccountService,
                     useValue: {
                         create: jest.fn().mockResolvedValue(bankAccountDto),
+                        findAllByUserId: jest
+                            .fn()
+                            .mockResolvedValue(returnGetBankAccounByUserId),
                     },
                 },
                 BankAccountRepository,
@@ -43,6 +53,28 @@ describe('BankAccountController', () => {
     it('should be defined', () => {
         expect(bankAccountController).toBeDefined();
         expect(bankAccountService).toBeDefined();
+    });
+
+    describe('get', () => {
+        it('should return all bank account by user id', async () => {
+            // Call the controller method
+            const result = await bankAccountController.findAllByUserId(userId);
+
+            // Assert the result
+            expect(result).toEqual(returnGetBankAccounByUserId);
+            expect(bankAccountService.findAllByUserId).toHaveBeenCalledTimes(1);
+        });
+
+        it('should throw an exception', () => {
+            jest.spyOn(
+                bankAccountService,
+                'findAllByUserId',
+            ).mockRejectedValueOnce(new Error());
+
+            expect(
+                bankAccountController.findAllByUserId(userId),
+            ).rejects.toThrowError();
+        });
     });
 
     describe('create', () => {

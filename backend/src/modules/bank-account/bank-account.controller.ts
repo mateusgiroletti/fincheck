@@ -19,17 +19,17 @@ import { LoggedUserId } from '../../shared/decorators/LoggedUserId';
 export class BankAccountController {
     constructor(private readonly bankAccountService: BankAccountService) {}
 
+    @Get()
+    findAllByUserId(@LoggedUserId() userId: string) {
+        return this.bankAccountService.findAllByUserId(userId);
+    }
+
     @Post()
     create(
         @LoggedUserId() userId: string,
         @Body() createBankAccountDto: CreateBankAccountDto,
     ) {
         return this.bankAccountService.create(userId, createBankAccountDto);
-    }
-
-    @Get()
-    findAllByUserId(@LoggedUserId() userId: string) {
-        return this.bankAccountService.findAllByUserId(userId);
     }
 
     @Put(':bankAccountId')
