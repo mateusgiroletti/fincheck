@@ -10,18 +10,18 @@ import { Travel } from "./expense/Travel";
 import { Income } from "./income/Income";
 
 export const iconsMap = {
-  income: {
-    default: Income,
-  },
-  expense: {
-    default: Expense,
-    food: Food,
-    fun: Fun,
-    grocery: Grocery,
-    home: Home,
-    education: Education,
-    clothes: Clothes,
-    transport: Transport,
-    travel: Travel,
-  },
+    income: {
+        default: Income,
+    },
+    expense: {
+        default: Expense,
+        food: Food,
+        fun: Fun,
+        grocery: Grocery,
+        home: Home,
+        education: Education,
+        clothes: Clothes,
+        transport: Transport,
+        travel: Travel,
+    },
 };
