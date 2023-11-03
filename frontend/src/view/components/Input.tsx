@@ -3,8 +3,8 @@ import { ComponentProps, forwardRef } from "react";
 import { cn } from "../../app/utils/cn";
 
 interface InputProps extends ComponentProps<"input"> {
-  name: string;
-  error?: string;
+    name: string;
+    error?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(

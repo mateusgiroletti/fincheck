@@ -1,5 +1,5 @@
 interface EyeIconProps {
-  open: boolean;
+    open: boolean;
 }
 
 export function EyeIcon({ open }: EyeIconProps) {
