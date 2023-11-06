@@ -45,7 +45,12 @@ export function useNewAccountModalController() {
             queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
             toast.success("Conta foi cadastrada com sucesso!");
             closeNewAccountModal();
-            reset();
+            reset({
+                color: "",
+                initialBalance: "0",
+                name: "",
+                type: "CHECKING"
+            });
         } catch {
             toast.error("Erro ao cadastrar a conta!");
         }
