@@ -39,7 +39,7 @@ export class TransactionService {
         });
     }
 
-    findAllByUserId(
+    async findAllByUserId(
         userId: string,
         filters: {
             month: number;
@@ -48,6 +48,8 @@ export class TransactionService {
             transactionType?: TransactionType;
         },
     ) {
+        const bankAccountId: string[] = filters.bankAccountId.split(',');
+
         return this.transactionRepo.findMany({
             where: {
                 userId,
@@ -56,7 +58,9 @@ export class TransactionService {
                     gte: new Date(Date.UTC(filters.year, filters.month)),
                     lt: new Date(Date.UTC(filters.year, filters.month + 1)),
                 },
-                bankAccountId: filters.bankAccountId,
+                bankAccountId: {
+                    in: bankAccountId,
+                },
             },
         });
     }
