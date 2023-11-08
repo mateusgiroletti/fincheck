@@ -48,7 +48,10 @@ export class TransactionService {
             transactionType?: TransactionType;
         },
     ) {
-        const bankAccountId: string[] = filters.bankAccountId.split(',');
+        const bankAccountId: string[] =
+            filters.bankAccountId?.length !== 0
+                ? filters.bankAccountId?.split(',')
+                : undefined;
 
         return this.transactionRepo.findMany({
             where: {
