@@ -58,6 +58,7 @@ export function Select({ className, placeholder, options, error, onChange, value
                                 <ChevronUpIcon />
                             </RdxSelect.ScrollUpButton>
 
+
                             <RdxSelect.Viewport className="p-2">
                                 {options.map(option => (
                                     <RdxSelect.Item

@@ -31,17 +31,25 @@ export function useTransactionsController() {
         return (value: TransactionsFilters[TFilter]) => {
             if (value === filters[filter]) return;
 
-            setFilters(prevState => ({
-                ...prevState,
-                [filter]: value,
-            }));
+            if (filter === "bankAccountId" && Array.isArray(value)) {
+                const bankAccountIdToString = value.join(",");
+                setFilters(prevState => ({
+                    ...prevState,
+                    [filter]: bankAccountIdToString,
+                }));
+            } else {
+                setFilters(prevState => ({
+                    ...prevState,
+                    [filter]: value,
+                }));
+            }
         };
     }
 
     function handleApplyFilters({
         bankAccountId,
         year,
-    }: { bankAccountId: string | undefined; year: number }) {
+    }: { bankAccountId: string[] | undefined; year: number }) {
         handleChangeFilters("bankAccountId")(bankAccountId);
         handleChangeFilters("year")(year);
         setIsFiltersModalOpen(false);

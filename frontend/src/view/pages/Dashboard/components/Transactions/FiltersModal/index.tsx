@@ -4,10 +4,12 @@ import { Button } from "../../../../../components/Button";
 import { Modal } from "../../../../../components/Modal";
 import { useFiltersModalController } from "./useFiltersModalController";
 
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
+
 interface FiltersModalProps {
     open: boolean;
     onClose(): void;
-    onApplyFilters(filters: { bankAccountId: string | undefined; year: number }): void;
+    onApplyFilters(filters: { bankAccountId: string[] | undefined; year: number }): void;
 }
 
 export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProps) {
@@ -26,20 +28,27 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
                     Conta
                 </span>
 
-                <div className="space-y-2 mt-2">
-                    {accounts.map(account => (
-                        <button
+                <ToggleGroup.Root
+                    type="multiple"
+                    className="ToggleGroup space-y-2 mt-2"
+                    onValueChange={(accountId) => handleSelectBankAccount(accountId)}
+                    defaultValue={selectedBankAccountId}
+                >
+                    {accounts.map((account) => (
+                        <ToggleGroup.Item
                             key={account.id}
-                            onClick={() => handleSelectBankAccount(account.id)}
+                            value={account.id}
+                            aria-label={account.name}
                             className={cn(
-                                "p-2 rounded-2xl w-full text-left text-gray-800 hover:bg-gray-50 transition-colors",
-                                account.id === selectedBankAccountId && "!bg-gray-200",
+                                "p-2 bg-gray-50 rounded-2xl w-full text-center text-gray-800 hover:bg-gray-200 transition-colors",
+                                "data-[state=on]:bg-gray-300",
+                                selectedBankAccountId?.includes(account.id) && "bg-gray-300",
                             )}
                         >
                             {account.name}
-                        </button>
+                        </ToggleGroup.Item>
                     ))}
-                </div>
+                </ToggleGroup.Root>
             </div>
 
             <div className="mt-10 text-gray-800">
@@ -47,9 +56,9 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
                     Ano
                 </span>
 
-                <div className="mt-2 w-52 flex items-center justify-between">
+                <div className="mt-2 w-auto flex items-center">
                     <button
-                        className="w-12 h-12 flex items-center justify-center"
+                        className="w-12 h-12 flex items-center justify-between"
                         onClick={() => handleChangeYear(-1)}
                     >
                         <ChevronLeftIcon className="w-6 h-6" />
