@@ -10,10 +10,12 @@ import { SignupParams } from "../../../app/services/authService/signup";
 
 const schema = z.object({
     name: z.string().nonempty("Nome é obrigatório"),
-    email: z.string()
+    email: z
+        .string()
         .nonempty("E-mail é obrigatório")
         .email("Informe um e-mail válido"),
-    password: z.string()
+    password: z
+        .string()
         .nonempty("Senha é obrigatória")
         .min(8, "Senha deve conter pelo menos 8 dígitos"),
 });

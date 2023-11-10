@@ -45,14 +45,11 @@ export function useEditAccountModalController() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const queryClient = useQueryClient();
-    const {
-        isLoading,
-        mutateAsync: updateAccount,
-    } = useMutation(bankAccountsService.update);
-    const {
-        isLoading: isLoadingDelete,
-        mutateAsync: removeAccount,
-    } = useMutation(bankAccountsService.remove);
+    const { isLoading, mutateAsync: updateAccount } = useMutation(
+        bankAccountsService.update,
+    );
+    const { isLoading: isLoadingDelete, mutateAsync: removeAccount } =
+        useMutation(bankAccountsService.remove);
 
     const handleSubmit = hookFormSubmit(async (data) => {
         try {

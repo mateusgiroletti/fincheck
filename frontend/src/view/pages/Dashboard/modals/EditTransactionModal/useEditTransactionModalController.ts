@@ -11,10 +11,7 @@ import { transactionsService } from "../../../../../app/services/transactionsSer
 import { currencyStringToNumber } from "../../../../../app/utils/currencyStringToNumber";
 
 const schema = z.object({
-    value: z.union([
-        z.string().nonempty("Informe o valor"),
-        z.number(),
-    ]),
+    value: z.union([z.string().nonempty("Informe o valor"), z.number()]),
     name: z.string().nonempty("Informe o nome"),
     categoryId: z.string().nonempty("Informe a categoria"),
     bankAccountId: z.string().nonempty("Informe a categoria"),
@@ -46,18 +43,15 @@ export function useEditTransactionModalController(
     const { accounts } = useBankAccounts();
     const { categories: categoriesList } = useCategories();
     const queryClient = useQueryClient();
-    const {
-        isLoading,
-        mutateAsync: updateTransaction,
-    } = useMutation(transactionsService.update);
-    const {
-        isLoading: isLoadingDelete,
-        mutateAsync: removeTransaction,
-    } = useMutation(transactionsService.remove);
+    const { isLoading, mutateAsync: updateTransaction } = useMutation(
+        transactionsService.update,
+    );
+    const { isLoading: isLoadingDelete, mutateAsync: removeTransaction } =
+        useMutation(transactionsService.remove);
 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const handleSubmit = hookFormSubmit(async data => {
+    const handleSubmit = hookFormSubmit(async (data) => {
         try {
             await updateTransaction({
                 ...data,
@@ -72,20 +66,22 @@ export function useEditTransactionModalController(
             toast.success(
                 transaction!.type === "EXPENSE"
                     ? "Despesa editada com sucesso!"
-                    : "Receita editada com sucesso!"
+                    : "Receita editada com sucesso!",
             );
             onClose();
         } catch {
             toast.error(
                 transaction!.type === "EXPENSE"
                     ? "Erro ao salvar a despesa!"
-                    : "Erro ao salvar a receita!"
+                    : "Erro ao salvar a receita!",
             );
         }
     });
 
     const categories = useMemo(() => {
-        return categoriesList.filter(category => category.type === transaction?.type);
+        return categoriesList.filter(
+            (category) => category.type === transaction?.type,
+        );
     }, [categoriesList, transaction]);
 
     async function handleDeleteTransaction() {
@@ -97,14 +93,14 @@ export function useEditTransactionModalController(
             toast.success(
                 transaction!.type === "EXPENSE"
                     ? "A despesa foi deletada com sucesso!"
-                    : "A receita foi deletada com sucesso!"
+                    : "A receita foi deletada com sucesso!",
             );
             onClose();
         } catch {
             toast.error(
                 transaction!.type === "EXPENSE"
                     ? "Erro ao deletar a despesa!"
-                    : "Erro ao deletar a receita!"
+                    : "Erro ao deletar a receita!",
             );
         }
     }

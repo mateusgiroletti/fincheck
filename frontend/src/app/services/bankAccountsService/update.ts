@@ -8,10 +8,7 @@ export interface UpdateBankAccountParams {
     type: "CHECKING" | "INVESTMENT" | "CASH";
 }
 
-export async function update({
-    id,
-    ...params
-}: UpdateBankAccountParams) {
+export async function update({ id, ...params }: UpdateBankAccountParams) {
     const { data } = await httpClient.put(`/bank-account/${id}`, params);
 
     return data;

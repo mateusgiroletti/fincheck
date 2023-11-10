@@ -2,11 +2,7 @@ import * as RdxDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { cn } from "../../app/utils/cn";
 
 function DrodownMenuRoot({ children }: { children: React.ReactNode }) {
-    return (
-        <RdxDropdownMenu.Root>
-            {children}
-        </RdxDropdownMenu.Root>
-    );
+    return <RdxDropdownMenu.Root>{children}</RdxDropdownMenu.Root>;
 }
 
 function DrodownMenuTrigger({ children }: { children: React.ReactNode }) {
@@ -45,7 +41,11 @@ interface DropdownMenuItemProps {
     onSelect?(): void;
 }
 
-function DropdownMenuItem({ children, className, onSelect }: DropdownMenuItemProps) {
+function DropdownMenuItem({
+    children,
+    className,
+    onSelect,
+}: DropdownMenuItemProps) {
     return (
         <RdxDropdownMenu.Item
             onSelect={onSelect}

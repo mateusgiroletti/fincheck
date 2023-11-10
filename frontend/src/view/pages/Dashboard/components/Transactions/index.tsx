@@ -42,7 +42,7 @@ export function Transactions() {
                 </div>
             )}
 
-            {!isInitialLoading &&
+            {!isInitialLoading && (
                 <>
                     <FiltersModal
                         open={isFiltersModalOpen}
@@ -67,8 +67,10 @@ export function Transactions() {
                                 slidesPerView={3}
                                 centeredSlides
                                 initialSlide={filters.month}
-                                onSlideChange={swiper => {
-                                    handleChangeFilters("month")(swiper.realIndex);
+                                onSlideChange={(swiper) => {
+                                    handleChangeFilters("month")(
+                                        swiper.realIndex,
+                                    );
                                 }}
                             >
                                 <SliderNavigation />
@@ -95,7 +97,7 @@ export function Transactions() {
                             </div>
                         )}
 
-                        {(!hasTransactions && !isLoading) && (
+                        {!hasTransactions && !isLoading && (
                             <div className="flex flex-col items-center justify-center h-full">
                                 <img src={emptyStateImage} alt="Empty state" />
                                 <p className="text-gray-700">
@@ -104,7 +106,7 @@ export function Transactions() {
                             </div>
                         )}
 
-                        {(hasTransactions && !isLoading) && (
+                        {hasTransactions && !isLoading && (
                             <>
                                 {transactionBeingEdited && (
                                     <EditTransactionModal
@@ -114,17 +116,26 @@ export function Transactions() {
                                     />
                                 )}
 
-                                {transactions.map(transaction => (
+                                {transactions.map((transaction) => (
                                     <div
                                         key={transaction.id}
                                         className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
                                         role="button"
-                                        onClick={() => handleOpenEditModal(transaction)}
+                                        onClick={() =>
+                                            handleOpenEditModal(transaction)
+                                        }
                                     >
                                         <div className="flex-1 flex items-center gap-3">
                                             <CategoryIcon
-                                                type={transaction.type === "EXPENSE" ? "expense" : "income"}
-                                                category={transaction.category?.icon}
+                                                type={
+                                                    transaction.type ===
+                                                    "EXPENSE"
+                                                        ? "expense"
+                                                        : "income"
+                                                }
+                                                category={
+                                                    transaction.category?.icon
+                                                }
                                             />
 
                                             <div>
@@ -132,7 +143,11 @@ export function Transactions() {
                                                     {transaction.name}
                                                 </strong>
                                                 <span className="text-sm text-gray-600">
-                                                    {formatDate(new Date(transaction.date))}
+                                                    {formatDate(
+                                                        new Date(
+                                                            transaction.date,
+                                                        ),
+                                                    )}
                                                 </span>
                                             </div>
                                         </div>
@@ -140,11 +155,15 @@ export function Transactions() {
                                         <span
                                             className={cn(
                                                 "tracking-[-0.5px] font-medium",
-                                                transaction.type === "EXPENSE" ? "text-red-800" : "text-green-800",
+                                                transaction.type === "EXPENSE"
+                                                    ? "text-red-800"
+                                                    : "text-green-800",
                                                 !areValuesVisible && "blur-sm",
                                             )}
                                         >
-                                            {transaction.type === "EXPENSE" ? "-" : "+"}
+                                            {transaction.type === "EXPENSE"
+                                                ? "-"
+                                                : "+"}
                                             {formatCurrency(transaction.value)}
                                         </span>
                                     </div>
@@ -153,7 +172,7 @@ export function Transactions() {
                         )}
                     </div>
                 </>
-            }
+            )}
         </div>
     );
 }

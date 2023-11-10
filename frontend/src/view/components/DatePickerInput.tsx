@@ -12,7 +12,12 @@ interface DatePickerInputProps {
     onChange?(date: Date): void;
 }
 
-export function DatePickerInput({ className, value, onChange, error }: DatePickerInputProps) {
+export function DatePickerInput({
+    className,
+    value,
+    onChange,
+    error,
+}: DatePickerInputProps) {
     const [selectedDate, setSelectedDate] = useState(value ?? new Date());
 
     function handleChangeDate(date: Date) {
@@ -35,9 +40,7 @@ export function DatePickerInput({ className, value, onChange, error }: DatePicke
                         <span className="absolute text-gray-700 text-xs left-[13px] top-2 pointer-events-none">
                             Data
                         </span>
-                        <span>
-                            {formatDate(selectedDate)}
-                        </span>
+                        <span>{formatDate(selectedDate)}</span>
                     </button>
                 </Popover.Trigger>
 

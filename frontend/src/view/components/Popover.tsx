@@ -2,19 +2,11 @@ import * as RdxPopover from "@radix-ui/react-popover";
 import { cn } from "../../app/utils/cn";
 
 function PopoverRoot({ children }: { children: React.ReactNode }) {
-    return (
-        <RdxPopover.Root>
-            {children}
-        </RdxPopover.Root>
-    );
+    return <RdxPopover.Root>{children}</RdxPopover.Root>;
 }
 
 function PopoverTrigger({ children }: { children: React.ReactNode }) {
-    return (
-        <RdxPopover.Trigger asChild>
-            {children}
-        </RdxPopover.Trigger>
-    );
+    return <RdxPopover.Trigger asChild>{children}</RdxPopover.Trigger>;
 }
 
 interface PopoverContentProps {

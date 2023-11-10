@@ -16,7 +16,11 @@ interface EditTransactionModalProps {
     transaction: Transaction | null;
 }
 
-export function EditTransactionModal({ transaction, onClose, open }: EditTransactionModalProps) {
+export function EditTransactionModal({
+    transaction,
+    onClose,
+    open,
+}: EditTransactionModalProps) {
     const {
         control,
         errors,
@@ -40,7 +44,9 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                 isLoading={isLoadingDelete}
                 onConfirm={handleDeleteTransaction}
                 onClose={handleCloseDeleteModal}
-                title={`Tem certeza que deseja excluir esta ${isExpense ? "despesa" : "receita"}?`}
+                title={`Tem certeza que deseja excluir esta ${
+                    isExpense ? "despesa" : "receita"
+                }?`}
             />
         );
     }
@@ -50,11 +56,11 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
             title={isExpense ? "Editar Despesa" : "Editar Receita"}
             open={open}
             onClose={onClose}
-            rightAction={(
+            rightAction={
                 <button onClick={handleOpenDeleteModal}>
                     <TrashIcon className="w-6 h-6 text-red-900" />
                 </button>
-            )}
+            }
         >
             <form onSubmit={handleSubmit}>
                 <div>
@@ -62,7 +68,9 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                         Valor {isExpense ? "da despesa" : "da receita"}
                     </span>
                     <div className="flex items-center gap-2">
-                        <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
+                        <span className="text-gray-600 tracking-[-0.5px] text-lg">
+                            R$
+                        </span>
                         <Controller
                             control={control}
                             name="value"
@@ -81,7 +89,9 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                 <div className="mt-10 flex flex-col gap-4">
                     <Input
                         type="text"
-                        placeholder={isExpense ? "Nome da Despesa" : "Nome da Receita"}
+                        placeholder={
+                            isExpense ? "Nome da Despesa" : "Nome da Receita"
+                        }
                         error={errors.name?.message}
                         {...register("name")}
                     />
@@ -96,7 +106,7 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                                 onChange={onChange}
                                 value={value}
                                 error={errors.categoryId?.message}
-                                options={categories.map(category => ({
+                                options={categories.map((category) => ({
                                     value: category.id,
                                     label: category.name,
                                 }))}
@@ -110,11 +120,13 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                         defaultValue=""
                         render={({ field: { onChange, value } }) => (
                             <Select
-                                placeholder={isExpense ? "Pagar com" : "Receber com"}
+                                placeholder={
+                                    isExpense ? "Pagar com" : "Receber com"
+                                }
                                 onChange={onChange}
                                 value={value}
                                 error={errors.bankAccountId?.message}
-                                options={accounts.map(account => ({
+                                options={accounts.map((account) => ({
                                     value: account.id,
                                     label: account.name,
                                 }))}
@@ -136,7 +148,11 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
                     />
                 </div>
 
-                <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
+                <Button
+                    type="submit"
+                    className="w-full mt-6"
+                    isLoading={isLoading}
+                >
                     Salvar
                 </Button>
             </form>

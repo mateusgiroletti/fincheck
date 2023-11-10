@@ -33,14 +33,18 @@ const colors: Color[] = [
     { color: "#212529", bg: "#F8F9FA" },
 ];
 
-
-export function ColorsDropdownInput({ error, className, onChange, value }: ColorsDropdownInputProps) {
+export function ColorsDropdownInput({
+    error,
+    className,
+    onChange,
+    value,
+}: ColorsDropdownInputProps) {
     const [selectedColor, setSelectedColor] = useState<null | Color>(() => {
         if (!value) {
             return null;
         }
 
-        return colors.find(c => c.color === value) ?? null;
+        return colors.find((c) => c.color === value) ?? null;
     });
 
     function handleSelect(color: Color) {
@@ -60,23 +64,23 @@ export function ColorsDropdownInput({ error, className, onChange, value }: Color
                         )}
                     >
                         Cor
-
                         <div className="absolute right-3 top-1/2 -translate-y-1/2">
                             {!selectedColor && (
                                 <ChevronDownIcon className="w-6 h-6 text-gray-800" />
                             )}
 
                             {selectedColor && (
-                                <ColorIcon color={selectedColor.color} bg={selectedColor.bg} />
+                                <ColorIcon
+                                    color={selectedColor.color}
+                                    bg={selectedColor.bg}
+                                />
                             )}
                         </div>
                     </button>
                 </DropdownMenu.Trigger>
 
-                <DropdownMenu.Content
-                    className="grid grid-cols-4"
-                >
-                    {colors.map(color => (
+                <DropdownMenu.Content className="grid grid-cols-4">
+                    {colors.map((color) => (
                         <DropdownMenu.Item
                             key={color.color}
                             onSelect={() => handleSelect(color)}

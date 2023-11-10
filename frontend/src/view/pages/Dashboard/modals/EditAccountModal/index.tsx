@@ -42,17 +42,21 @@ export function EditAccountModal() {
             title="Editar Conta"
             open={isEditAccountModalOpen}
             onClose={closeEditAccountModal}
-            rightAction={(
+            rightAction={
                 <button onClick={handleOpenDeleteModal}>
                     <TrashIcon className="w-6 h-6 text-red-900" />
                 </button>
-            )}
+            }
         >
             <form onSubmit={handleSubmit}>
                 <div>
-                    <span className="text-gray-600 tracking-[-0.5px] text-xs">Saldo inicial</span>
+                    <span className="text-gray-600 tracking-[-0.5px] text-xs">
+                        Saldo inicial
+                    </span>
                     <div className="flex items-center gap-2">
-                        <span className="text-gray-600 tracking-[-0.5px] text-lg">R$</span>
+                        <span className="text-gray-600 tracking-[-0.5px] text-lg">
+                            R$
+                        </span>
 
                         <Controller
                             control={control}
@@ -119,7 +123,11 @@ export function EditAccountModal() {
                     />
                 </div>
 
-                <Button type="submit" className="w-full mt-6" isLoading={isLoading}>
+                <Button
+                    type="submit"
+                    className="w-full mt-6"
+                    isLoading={isLoading}
+                >
                     Salvar
                 </Button>
             </form>

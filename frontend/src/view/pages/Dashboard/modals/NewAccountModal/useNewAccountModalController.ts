@@ -17,10 +17,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function useNewAccountModalController() {
-    const {
-        isNewAccountModalOpen,
-        closeNewAccountModal,
-    } = useDashboard();
+    const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
 
     const {
         register,
@@ -49,7 +46,7 @@ export function useNewAccountModalController() {
                 color: "",
                 initialBalance: "0",
                 name: "",
-                type: "CHECKING"
+                type: "CHECKING",
             });
         } catch {
             toast.error("Erro ao cadastrar a conta!");

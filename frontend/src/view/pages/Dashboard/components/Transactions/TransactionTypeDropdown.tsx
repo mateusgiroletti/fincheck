@@ -6,10 +6,13 @@ import { TransactionsIcon } from "../../../../components/icons/TransactionsIcon"
 
 interface TransactionTypeDropdownProps {
     onSelect(type: "INCOME" | "EXPENSE" | undefined): void;
-    selectedType: "INCOME" | "EXPENSE" | undefined
+    selectedType: "INCOME" | "EXPENSE" | undefined;
 }
 
-export function TransactionTypeDropdown({ onSelect, selectedType }: TransactionTypeDropdownProps) {
+export function TransactionTypeDropdown({
+    onSelect,
+    selectedType,
+}: TransactionTypeDropdownProps) {
     return (
         <DropdownMenu.Root>
             <DropdownMenu.Trigger>
@@ -29,17 +32,26 @@ export function TransactionTypeDropdown({ onSelect, selectedType }: TransactionT
             </DropdownMenu.Trigger>
 
             <DropdownMenu.Content className="w-[279px]">
-                <DropdownMenu.Item className="gap-2" onSelect={() => onSelect("INCOME")}>
+                <DropdownMenu.Item
+                    className="gap-2"
+                    onSelect={() => onSelect("INCOME")}
+                >
                     <IncomeIcon />
                     Receitas
                 </DropdownMenu.Item>
 
-                <DropdownMenu.Item className="gap-2" onSelect={() => onSelect("EXPENSE")}>
+                <DropdownMenu.Item
+                    className="gap-2"
+                    onSelect={() => onSelect("EXPENSE")}
+                >
                     <ExpensesIcon />
                     Despesas
                 </DropdownMenu.Item>
 
-                <DropdownMenu.Item className="gap-2" onSelect={() => onSelect(undefined)}>
+                <DropdownMenu.Item
+                    className="gap-2"
+                    onSelect={() => onSelect(undefined)}
+                >
                     <TransactionsIcon />
                     Transações
                 </DropdownMenu.Item>

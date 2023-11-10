@@ -4,7 +4,8 @@ import { Input } from "../../components/Input";
 import { useRegisterController } from "./useRegisterController";
 
 export function Register() {
-    const { errors, handleSubmit, register, isLoading } = useRegisterController();
+    const { errors, handleSubmit, register, isLoading } =
+        useRegisterController();
 
     return (
         <>

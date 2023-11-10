@@ -17,7 +17,9 @@ export const AuthContext = createContext({} as AuthContextValue);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [signedIn, setSignedIn] = useState<boolean>(() => {
-        const storedAccessToken = localStorage.getItem(localStorageKeys.ACCESS_TOKEN);
+        const storedAccessToken = localStorage.getItem(
+            localStorageKeys.ACCESS_TOKEN,
+        );
 
         return !!storedAccessToken;
     });
@@ -55,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 signedIn: isSuccess && signedIn,
                 user: data,
                 signin,
-                signout
+                signout,
             }}
         >
             <LaunchScreen isLoading={isFetching} />

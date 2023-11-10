@@ -10,5 +10,5 @@ export interface Transaction {
         id: string;
         name: string;
         icon: string;
-    }
+    };
 }

@@ -10,10 +10,7 @@ export interface UpdateTransactionParams {
     type: "INCOME" | "EXPENSE";
 }
 
-export async function update({
-    id,
-    ...params
-}: UpdateTransactionParams) {
+export async function update({ id, ...params }: UpdateTransactionParams) {
     const { data } = await httpClient.put(`/transaction/${id}`, params);
 
     return data;

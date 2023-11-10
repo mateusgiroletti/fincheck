@@ -10,7 +10,13 @@ interface ConfirmDeleteModalProps {
     isLoading: boolean;
 }
 
-export function ConfirmDeleteModal({ onConfirm, onClose, title, description, isLoading }: ConfirmDeleteModalProps) {
+export function ConfirmDeleteModal({
+    onConfirm,
+    onClose,
+    title,
+    description,
+    isLoading,
+}: ConfirmDeleteModalProps) {
     return (
         <Modal open title="Excluir" onClose={onClose}>
             <div className="flex flex-col items-center text-center gap-6">

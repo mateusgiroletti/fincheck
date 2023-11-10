@@ -40,12 +40,9 @@ export function useNewTransactionModalController() {
     const queryClient = useQueryClient();
     const { accounts } = useBankAccounts();
     const { categories: categoriesList } = useCategories();
-    const {
-        isLoading,
-        mutateAsync,
-    } = useMutation(transactionsService.create);
+    const { isLoading, mutateAsync } = useMutation(transactionsService.create);
 
-    const handleSubmit = hookFormSubmit(async data => {
+    const handleSubmit = hookFormSubmit(async (data) => {
         try {
             await mutateAsync({
                 ...data,
@@ -59,7 +56,7 @@ export function useNewTransactionModalController() {
             toast.success(
                 newTransactionType === "EXPENSE"
                     ? "Despesa cadastrada com sucesso!"
-                    : "Receita cadastrada com sucesso!"
+                    : "Receita cadastrada com sucesso!",
             );
             closeNewTransactionModal();
             reset({
@@ -67,19 +64,21 @@ export function useNewTransactionModalController() {
                 bankAccountId: "",
                 name: "",
                 categoryId: "",
-                date: new Date()
+                date: new Date(),
             });
         } catch {
             toast.error(
                 newTransactionType === "EXPENSE"
                     ? "Erro ao cadastrar a despesa!"
-                    : "Erro ao cadastrar a receita!"
+                    : "Erro ao cadastrar a receita!",
             );
         }
     });
 
     const categories = useMemo(() => {
-        return categoriesList.filter(category => category.type === newTransactionType);
+        return categoriesList.filter(
+            (category) => category.type === newTransactionType,
+        );
     }, [categoriesList, newTransactionType]);
 
     return {

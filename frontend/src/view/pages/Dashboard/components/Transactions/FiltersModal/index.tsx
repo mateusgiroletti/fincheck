@@ -9,10 +9,17 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 interface FiltersModalProps {
     open: boolean;
     onClose(): void;
-    onApplyFilters(filters: { bankAccountId: string[] | undefined; year: number }): void;
+    onApplyFilters(filters: {
+        bankAccountId: string[] | undefined;
+        year: number;
+    }): void;
 }
 
-export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProps) {
+export function FiltersModal({
+    open,
+    onClose,
+    onApplyFilters,
+}: FiltersModalProps) {
     const {
         selectedBankAccountId,
         handleSelectBankAccount,
@@ -31,7 +38,9 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
                 <ToggleGroup.Root
                     type="multiple"
                     className="ToggleGroup space-y-2 mt-2"
-                    onValueChange={(accountId) => handleSelectBankAccount(accountId)}
+                    onValueChange={(accountId) =>
+                        handleSelectBankAccount(accountId)
+                    }
                     defaultValue={selectedBankAccountId}
                 >
                     {accounts.map((account) => (
@@ -42,7 +51,8 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
                             className={cn(
                                 "p-2 bg-gray-50 rounded-2xl w-full text-center text-gray-800 hover:bg-gray-200 transition-colors",
                                 "data-[state=on]:bg-gray-300",
-                                selectedBankAccountId?.includes(account.id) && "bg-gray-300",
+                                selectedBankAccountId?.includes(account.id) &&
+                                    "bg-gray-300",
                             )}
                         >
                             {account.name}
@@ -52,9 +62,7 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
             </div>
 
             <div className="mt-10 text-gray-800">
-                <span className="text-lg tracking-[-1px] font-bold">
-                    Ano
-                </span>
+                <span className="text-lg tracking-[-1px] font-bold">Ano</span>
 
                 <div className="mt-2 w-auto flex items-center">
                     <button
@@ -81,10 +89,12 @@ export function FiltersModal({ open, onClose, onApplyFilters }: FiltersModalProp
 
             <Button
                 className="w-full mt-10"
-                onClick={() => onApplyFilters({
-                    bankAccountId: selectedBankAccountId,
-                    year: selectedYear,
-                })}
+                onClick={() =>
+                    onApplyFilters({
+                        bankAccountId: selectedBankAccountId,
+                        year: selectedYear,
+                    })
+                }
             >
                 Aplicar Filtros
             </Button>

@@ -34,7 +34,9 @@ export function Accounts() {
             {!isLoading && (
                 <>
                     <div>
-                        <span className="tracking-[-0.5px] text-white block">Saldo total</span>
+                        <span className="tracking-[-0.5px] text-white block">
+                            Saldo total
+                        </span>
 
                         <div className="flex items-center gap-2">
                             <strong
@@ -82,26 +84,33 @@ export function Accounts() {
                             <div>
                                 <Swiper
                                     spaceBetween={16}
-                                    slidesPerView={windowWidth >= 500 ? 2.1 : 1.2}
-                                    onSlideChange={swiper => {
+                                    slidesPerView={
+                                        windowWidth >= 500 ? 2.1 : 1.2
+                                    }
+                                    onSlideChange={(swiper) => {
                                         setSliderState({
                                             isBeginning: swiper.isBeginning,
                                             isEnd: swiper.isEnd,
                                         });
                                     }}
                                 >
-                                    <div className="flex items-center justify-between mb-4" slot="container-start">
+                                    <div
+                                        className="flex items-center justify-between mb-4"
+                                        slot="container-start"
+                                    >
                                         <strong className="text-white tracking-[-1px] text-lg font-bold">
                                             Minhas contas
                                         </strong>
 
                                         <SliderNavigation
-                                            isBeginning={sliderState.isBeginning}
+                                            isBeginning={
+                                                sliderState.isBeginning
+                                            }
                                             isEnd={sliderState.isEnd}
                                         />
                                     </div>
 
-                                    {accounts.map(account => (
+                                    {accounts.map((account) => (
                                         <SwiperSlide key={account.id}>
                                             <AccountCard data={account} />
                                         </SwiperSlide>
