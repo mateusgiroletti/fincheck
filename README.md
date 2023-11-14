@@ -4,11 +4,11 @@
   <img src=".github/img/fincheck.jpg">
 </h1>
 
-Fincheck é uma aplicação para você controlar de forma fácil e intuitiva as suas finanças. Possibilitando criar suas contas e saldos, criar transações (receitas/despesas) categorizando-a e monitorando a movimentação do seu dinheiro.
+Fincheck is an application for you to easily and intuitively control your finances. Making it possible to create your accounts and balances, create transactions (income/expenses), categorize them and monitor the movement of your money.
 
 ## Objective
 
-Este projeto foi desenvolvido durante um evento do curso [JStack](https://jstack.com.br/), com o objetivo de aplicar os conhecimentos obtidos durante o curso.
+This project was developed during an event of the [JStack](https://jstack.com.br/) course, with the aim of applying the knowledge obtained during the course.
 
 ##  Technologies used
 
