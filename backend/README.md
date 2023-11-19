@@ -1,6 +1,6 @@
 # Backend
 
-Aqui voce pode encontrar o backend do fincheck. 
+This is the fincheck backend.
 
 ## Database
 
@@ -12,10 +12,14 @@ The database used was Postgres together with Prisma ORM.
 
 ## Design Pattern
 
-Repository Pattern
-Service Layer Pattern
+<ul>
+    <li>Repository Pattern</li>
+    <li>Service Layer Pattern</li>
+</ul>
 
 ## Tests
+
+Future update
 
 ## Swagger Documentation
 

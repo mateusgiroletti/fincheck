@@ -1,6 +1,6 @@
-FROM node:alpine
+FROM node:18-alpine
 
-WORKDIR /usr/app
+WORKDIR /usr/fincheck-app-backend
 
 COPY package*.json ./
 

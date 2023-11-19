@@ -1,18 +1,18 @@
 version: '3'
 
 services:
-    app:
+    fincheck-app-backend:
         build: .
         ports:
             - 3000:3000
         volumes:
-            - .:/usr/app
+            - .:/usr/fincheck-app-backend
         command: npm run start:dev
-    db:
+    fincheck-db:
         image: postgres
         restart: always
         volumes:
-            - ./.docker/data:/var/lib/postgres/data
+            - ./.docker/pg-data:/var/lib/postgresql/data
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
