@@ -37,11 +37,17 @@ cd backend
 
 Edit the .env.example file to .env and put the necessary environment variables.
 
+```console
+cp .env.example .env
+```
+
 Start the dockers containers.
 
 ```console
 docker-compose up -d
 ```
+
+Change env of DABATESE_HOST to "localhost"
 
 Run the command to create the tables in the database
 
@@ -52,7 +58,15 @@ npx prisma generate
 Run the migrates
 
 ```console
-npx prisma migrate deploy
+npx prisma migrate dev
+```
+
+Change env of DABATESE_HOST to "fincheck-db" (container name inside docker-compose.yml)
+
+Restart docker container:
+
+```console
+docker compose down && docker compose up -d
 ```
  
 The application was available in
