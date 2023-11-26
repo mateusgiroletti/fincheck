@@ -66,32 +66,56 @@ describe('TransactionService', () => {
         ]).toBeDefined();
     });
 
-    /*    describe('findAll', () => {
-        it('should return all categories where userId is null', async () => {
-            const mockCategory = [
+    describe('findAllByUserId', () => {
+        it('should return all transactions for a given user', async () => {
+            const userId = '1';
+            const bankAccountId = '3';
+            const filters = {
+                month: 1,
+                year: 2023,
+                bankAccountId: bankAccountId,
+                transactionType: TransactionType.INCOME,
+            };
+
+            const mockTransaciton = [
                 {
                     id: '1',
-                    userId: null,
-                    name: 'cat',
-                    icon: 'icon',
+                    userId: '2',
+                    bankAccountId: bankAccountId,
+                    categoryId: '4',
+                    name: 'bank',
+                    value: 555.0,
+                    date: new Date(Date.now()),
                     type: TransactionType.INCOME,
-                    isCustom: false,
                 },
             ];
 
-            jest.spyOn(categoryRepository, 'findMany').mockResolvedValue(
-                mockCategory,
+            jest.spyOn(transactionRepo, 'findMany').mockResolvedValue(
+                mockTransaciton,
             );
 
-            const category = await categoryService.findAll();
+            const transaction = await transactionService.findAllByUserId(
+                userId,
+                filters,
+            );
 
             // Assert that the service returns the expected user
-            expect(category).toEqual(mockCategory);
+            expect(transaction).toEqual(mockTransaciton);
 
-            // Assert that the findMany method of CategoryRepository was called with the correct parameters
-            expect(categoryRepository.findMany).toHaveBeenCalledWith({
-                where: { userId: null },
+            // Assert that the findMany method of transactionRepo was called with the correct parameters
+            expect(transactionRepo.findMany).toHaveBeenCalledWith({
+                where: {
+                    userId,
+                    type: filters.transactionType,
+                    date: {
+                        gte: new Date(Date.UTC(filters.year, filters.month)),
+                        lt: new Date(Date.UTC(filters.year, filters.month + 1)),
+                    },
+                    bankAccountId: {
+                        in: ['3'],
+                    },
+                },
             });
         });
-    }); */
+    });
 });

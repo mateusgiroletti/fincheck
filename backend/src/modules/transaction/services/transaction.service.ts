@@ -16,29 +16,6 @@ export class TransactionService {
         private readonly validateTransactionOwnershipService: ValidateTransactionOwnershipService,
     ) {}
 
-    async create(userId: string, createTransactionDto: CreateTransactionDto) {
-        const { bankAccountId, categoryId, name, value, date, type } =
-            createTransactionDto;
-
-        await this.validateEntitiesOwnership({
-            userId,
-            bankAccountId,
-            categoryId,
-        });
-
-        return this.transactionRepo.create({
-            data: {
-                userId,
-                bankAccountId,
-                categoryId,
-                name,
-                value,
-                date,
-                type,
-            },
-        });
-    }
-
     async findAllByUserId(
         userId: string,
         filters: {
@@ -70,6 +47,29 @@ export class TransactionService {
 
     findOne(id: number) {
         return `This action returns a #${id} transaction`;
+    }
+
+    async create(userId: string, createTransactionDto: CreateTransactionDto) {
+        const { bankAccountId, categoryId, name, value, date, type } =
+            createTransactionDto;
+
+        await this.validateEntitiesOwnership({
+            userId,
+            bankAccountId,
+            categoryId,
+        });
+
+        return this.transactionRepo.create({
+            data: {
+                userId,
+                bankAccountId,
+                categoryId,
+                name,
+                value,
+                date,
+                type,
+            },
+        });
     }
 
     async update(
