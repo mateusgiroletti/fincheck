@@ -45,10 +45,6 @@ export class TransactionService {
         });
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} transaction`;
-    }
-
     async create(userId: string, createTransactionDto: CreateTransactionDto) {
         const { bankAccountId, categoryId, name, value, date, type } =
             createTransactionDto;
