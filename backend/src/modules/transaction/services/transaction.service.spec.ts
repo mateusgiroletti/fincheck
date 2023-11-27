@@ -186,4 +186,73 @@ describe('TransactionService', () => {
             });
         });
     });
+
+    describe('update', () => {
+        it('should update a transaction and return it', async () => {
+            const userId = '1';
+            const bankAccountId = '3';
+            const transactionId = '4';
+
+            const requestTransaction = {
+                bankAccountId,
+                categoryId: '1',
+                name: 'bank',
+                value: 150.0,
+                date: '1701029179542',
+                type: TransactionType.INCOME,
+            };
+
+            const mockTransaciton = {
+                id: '1',
+                userId: '2',
+                bankAccountId,
+                categoryId: '1',
+                name: 'bank',
+                value: 150.0,
+                date: new Date(Date.now()),
+                type: TransactionType.INCOME,
+            };
+
+            jest.spyOn(transactionRepo, 'update').mockResolvedValue(
+                mockTransaciton,
+            );
+
+            jest.spyOn(
+                validateTransactionOwnershipService,
+                'validate',
+            ).mockResolvedValue();
+
+            jest.spyOn(
+                validateBankAccountOwnershioService,
+                'validate',
+            ).mockResolvedValue();
+
+            jest.spyOn(
+                validateCategoryOwnershipService,
+                'validate',
+            ).mockResolvedValue();
+
+            const transaction = await transactionService.update(
+                userId,
+                transactionId,
+                requestTransaction,
+            );
+
+            // Assert that the service returns the expected user
+            expect(transaction).toEqual(mockTransaciton);
+
+            // Assert that the update method of transactionRepo was called with the correct parameters
+            expect(transactionRepo.update).toHaveBeenCalledWith({
+                data: {
+                    bankAccountId,
+                    categoryId: '1',
+                    name: 'bank',
+                    value: 150.0,
+                    date: '1701029179542',
+                    type: TransactionType.INCOME,
+                },
+                where: { id: transactionId },
+            });
+        });
+    });
 });
