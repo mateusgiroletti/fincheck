@@ -255,4 +255,31 @@ describe('TransactionService', () => {
             });
         });
     });
+
+    describe('dalete', () => {
+        it('should delete a transaction by userId and transactionid', async () => {
+            const userId = '1';
+            const transactionId = '4';
+
+            jest.spyOn(transactionRepo, 'delete').mockResolvedValue(null);
+
+            jest.spyOn(
+                validateTransactionOwnershipService,
+                'validate',
+            ).mockResolvedValue();
+
+            const transaction = await transactionService.remove(
+                userId,
+                transactionId,
+            );
+
+            // Assert that the service returns the expected user
+            expect(transaction).toBeNull();
+
+            // Assert that the update method of transactionRepo was called with the correct parameters
+            expect(transactionRepo.delete).toHaveBeenCalledWith({
+                where: { id: transactionId },
+            });
+        });
+    });
 });
