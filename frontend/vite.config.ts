@@ -11,8 +11,12 @@ export default defineConfig({
         port: 3001,
     },
     plugins: [react()],
-    test:{
+    test: {
         globals: true,
-        environment: "jsdom"
+        environment: "jsdom",
+        coverage: {
+            enabled: true,
+            reporter: ['text', 'json', 'html'],
+        },
     }
 })
