@@ -16,6 +16,7 @@ export function Button({
 }: ButtonProps) {
     return (
         <button
+            data-testid="button"
             {...props}
             disabled={disabled || isLoading}
             className={cn(
