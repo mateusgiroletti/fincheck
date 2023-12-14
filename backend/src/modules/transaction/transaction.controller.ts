@@ -48,11 +48,6 @@ export class TransactionController {
         });
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.transactionService.findOne(+id);
-    }
-
     @Put(':transactionId')
     update(
         @LoggedUserId() userId: string,
