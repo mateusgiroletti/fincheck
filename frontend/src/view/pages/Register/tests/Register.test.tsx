@@ -1,4 +1,3 @@
-// Arquivo: Register.test.tsx
 import "@testing-library/jest-dom";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -68,7 +67,6 @@ describe("Register Page", () => {
 
         expect(screen.getByTestId("btnCreate")).toHaveAttribute("disabled");
     });
-
 });
 
 
