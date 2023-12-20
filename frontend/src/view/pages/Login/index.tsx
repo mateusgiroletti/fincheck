@@ -36,6 +36,7 @@ export function Login() {
                     placeholder="E-mail"
                     error={errors.email?.message}
                     {...register("email")}
+                    data-testid="email"
                 />
 
                 <Input
@@ -43,9 +44,15 @@ export function Login() {
                     placeholder="Senha"
                     error={errors.password?.message}
                     {...register("password")}
+                    data-testid="password"
                 />
 
-                <Button type="submit" className="mt-2" isLoading={isLoading}>
+                <Button
+                    type="submit"
+                    className="mt-2"
+                    isLoading={isLoading}
+                    data-testid="btnLogin"
+                >
                     Entrar
                 </Button>
             </form>
