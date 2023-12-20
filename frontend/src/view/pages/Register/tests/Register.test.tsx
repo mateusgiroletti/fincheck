@@ -8,7 +8,7 @@ import { describe, expect, it, vi } from "vitest";
 import { Register } from "../index";
 import * as useRegisterController from "../useRegisterController";
 
-describe("Button", () => {
+describe("Register Page", () => {
     it("should be able render Register component", () => {
         render(
             <QueryClientProvider client={new QueryClient()}>
