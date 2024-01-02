@@ -7,7 +7,7 @@ This is the fincheck backend.
 The database used was Postgres together with Prisma ORM.
 
 <p align="center">
-    <img  src="../.github/img/data_model.jpg">
+    <img  src="../.github/img/backend/data_model.jpg">
 </p>
 
 ## Design Pattern

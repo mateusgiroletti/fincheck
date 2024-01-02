@@ -1,27 +1,58 @@
-# React + TypeScript + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the fincheck frontend.
 
-Currently, two official plugins are available:
+## Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Here you can have a preview of the screens. The application design can be accessed [here](https://www.figma.com/file/0j4Z5jo3BATqfTLtJxvFLA/Fincheck?type=design&node-id=229-8335&mode=design). Below you will find some screenshots of the application
 
-## Expanding the ESLint configuration
+## Sign In
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Login screen.
 
-- Configure the top-level `parserOptions` property like this:
+<img src="../.github/img/frontend/Sign-in.png" alt="SignIn"/>
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Sign Up
+
+Registration screen.
+
+<img src="../.github/img/frontend/Sign-up.png" alt="SignUp" />
+
+## Dashboard
+
+Here the user will have access to all the application's features
+
+<img src="../.github/img/frontend/Home.png" alt="Dashboard" />
+
+## Dashboard Empty State
+
+Here you can see how the application looks without transactions and accounts.
+
+<img src="../.github/img/frontend/Home-empty-state.png" alt="Dashboard Empty" />
+
+## How to use?
+
+Clone this project on your favorite dir and change to frontend dir:
+
+```console
+cd frontend
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Make a copy of the .env
+
+```console
+cp .env.example .env
+```
+Change env of VITE_API_URL to: http://localhost:3000
+
+Start the dockers containers.
+
+```console
+docker-compose up -d
+```
+
+The application was available in
+
+```console
+http://localhost:3001/
+```

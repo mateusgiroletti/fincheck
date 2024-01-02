@@ -1,7 +1,7 @@
 # Fincheck
 
 <p align="center" >
-   <img src=".github/img/fincheck.jpg">
+   <img src=".github/img/backend/fincheck.jpg">
 </p>
 
 Fincheck is an application for you to easily and intuitively control your finances. Making it possible to create your accounts and balances, create transactions (income/expenses), categorize them and monitor the movement of your money.
