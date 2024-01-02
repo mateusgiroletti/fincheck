@@ -43,7 +43,7 @@ Make a copy of the .env
 ```console
 cp .env.example .env
 ```
-Change env of VITE_API_URL to: http://localhost:3000
+Change env of VITE_API_URL to: http://localhost:3001
 
 Start the dockers containers.
 
