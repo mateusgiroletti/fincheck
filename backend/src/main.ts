@@ -17,6 +17,7 @@ async function bootstrap() {
         .setTitle('Fincheck API')
         .setDescription('The Fincheck API description')
         .setVersion('1.0')
+        .addBearerAuth()
         .build();
         
     const document = SwaggerModule.createDocument(app, config);
