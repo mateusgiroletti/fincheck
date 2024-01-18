@@ -5,6 +5,7 @@ import {
     ApiOperation,
     ApiResponse,
     ApiTags,
+    ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { IndexCategoryDto } from './dto/index-category.dto';
 
@@ -21,6 +22,11 @@ export class CategoryController {
         description: 'Returns the list of categories',
         type: IndexCategoryDto,
         isArray: true,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
     })
     findAll() {
         return this.categoryService.findAll();

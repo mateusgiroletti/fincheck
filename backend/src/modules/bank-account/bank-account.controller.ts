@@ -14,14 +14,34 @@ import { BankAccountService } from './services/bank-account.service';
 import { CreateBankAccountDto } from './dto/create-bank-account.dto';
 import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 import { LoggedUserId } from '../../shared/decorators/LoggedUserId';
-import { ApiTags } from '@nestjs/swagger';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiTags,
+    ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { IndexBankAccount } from './dto/index-bank-account.dto';
 
 @Controller('bank-account')
 @ApiTags('Bank Accounts')
+@ApiBearerAuth()
 export class BankAccountController {
     constructor(private readonly bankAccountService: BankAccountService) {}
 
     @Get()
+    @ApiOperation({ summary: 'Bank Account informations' })
+    @ApiResponse({
+        status: 200,
+        description: 'Returns the bank accounts of the logged in user',
+        type: IndexBankAccount,
+        isArray: true,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
     findAllByUserId(@LoggedUserId() userId: string) {
         return this.bankAccountService.findAllByUserId(userId);
     }
