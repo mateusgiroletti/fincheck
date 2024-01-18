@@ -23,7 +23,11 @@ Future update
 
 ## Swagger Documentation
 
-Future update
+Documentation of the endpoints, swagger was used, as there is an integration with nest, facilitating documentation
+
+<p align="center">
+    <img  src="../.github/img/backend/documentation.png">
+</p>
 
 ## How to use?
 
