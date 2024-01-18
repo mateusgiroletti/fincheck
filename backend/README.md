@@ -19,7 +19,11 @@ The database used was Postgres together with Prisma ORM.
 
 ## Tests
 
-Future update
+Unit tests were carried out using jest focusing on controllers and services
+
+<p align="center">
+    <img  src="../.github/img/backend/tests.png">
+</p>
 
 ## Swagger Documentation
 
