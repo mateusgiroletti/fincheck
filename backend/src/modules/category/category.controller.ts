@@ -1,10 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { CategoryService } from './services/category.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiTags,
+} from '@nestjs/swagger';
 import { IndexCategoryDto } from './dto/index-category.dto';
 
 @Controller('category')
 @ApiTags('Categories')
+@ApiBearerAuth()
 export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
