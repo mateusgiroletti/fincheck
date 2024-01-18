@@ -20,10 +20,14 @@ import { TransactionType } from './entities/Transaction';
 import { OptionalParseEnumParse } from 'src/shared/pipes/OptionalParseEnumParse';
 import {
     ApiBearerAuth,
+    ApiNotFoundResponse,
     ApiOperation,
     ApiQuery,
+    ApiResponse,
     ApiTags,
+    ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { IndexTransactionDto } from './dto/index-transaction.dto';
 
 @Controller('transaction')
 @ApiTags('Transactions')
@@ -40,6 +44,17 @@ export class TransactionController {
         name: 'transactionType',
         enum: TransactionType,
         required: false,
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Returns the transaction list of user logged',
+        type: IndexTransactionDto,
+        isArray: true,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
     })
     findAll(
         @LoggedUserId() userId: string,
@@ -59,6 +74,16 @@ export class TransactionController {
 
     @Post()
     @ApiOperation({ summary: 'Create a transaction for the logged in user' })
+    @ApiResponse({
+        status: 201,
+        description: 'Returns the transaction created',
+        type: CreateTransactionDto,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
     create(
         @LoggedUserId() userId: string,
         @Body() createTransactionDto: CreateTransactionDto,
@@ -68,6 +93,21 @@ export class TransactionController {
 
     @Put(':transactionId')
     @ApiOperation({ summary: 'Update a transaction for the logged in user' })
+    @ApiResponse({
+        status: 201,
+        description: 'Returns the transaction updated',
+        type: UpdateTransactionDto,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Transaction not found',
+        type: ApiNotFoundResponse,
+    })
     update(
         @LoggedUserId() userId: string,
         @Param('transactionId', ParseUUIDPipe) transactionId: string,
@@ -83,6 +123,20 @@ export class TransactionController {
     @Delete(':transactionId')
     @HttpCode(HttpStatus.NO_CONTENT)
     @ApiOperation({ summary: 'Delete a transaction for the logged in user' })
+    @ApiResponse({
+        status: 204,
+        description: 'No Content',
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Transaction not found',
+        type: ApiNotFoundResponse,
+    })
     remove(
         @LoggedUserId() userId: string,
         @Param('transactionId', ParseUUIDPipe) transactionId: string,
