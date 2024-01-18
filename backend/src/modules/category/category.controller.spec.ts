@@ -3,12 +3,13 @@ import { CategoryController } from './category.controller';
 import { CategoryService } from './services/category.service';
 import { CategoryRepository } from '../../shared/database/repositories/category.repositorie';
 import { PrismaService } from '../../shared/database/prisma.service';
+import { IndexCategoryDto } from './dto/index-category.dto';
 
 describe('CategoryController', () => {
     let categoryController: CategoryController;
     let categoryService: CategoryService;
 
-    const categories = [
+    const categories: IndexCategoryDto[] = [
         {
             id: 'f27ac21e-4d7f-44b5-b2f9-02c9ee8a73ae',
             userId: null,
