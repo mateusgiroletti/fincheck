@@ -16,6 +16,7 @@ import { UpdateBankAccountDto } from './dto/update-bank-account.dto';
 import { LoggedUserId } from '../../shared/decorators/LoggedUserId';
 import {
     ApiBearerAuth,
+    ApiNotFoundResponse,
     ApiOperation,
     ApiResponse,
     ApiTags,
@@ -47,6 +48,17 @@ export class BankAccountController {
     }
 
     @Post()
+    @ApiOperation({ summary: 'Create a bank account for logged user' })
+    @ApiResponse({
+        status: 200,
+        description: 'Returns the bank accounts created',
+        type: CreateBankAccountDto,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
     create(
         @LoggedUserId() userId: string,
         @Body() createBankAccountDto: CreateBankAccountDto,
@@ -55,6 +67,22 @@ export class BankAccountController {
     }
 
     @Put(':bankAccountId')
+    @ApiOperation({ summary: 'Update a bank account' })
+    @ApiResponse({
+        status: 200,
+        description: 'Returns the bank accounts updated',
+        type: UpdateBankAccountDto,
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Bank account not found',
+        type: ApiNotFoundResponse,
+    })
     update(
         @LoggedUserId() userId: string,
         @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
@@ -69,6 +97,21 @@ export class BankAccountController {
 
     @Delete(':bankAccountId')
     @HttpCode(HttpStatus.NO_CONTENT)
+    @ApiOperation({ summary: 'Delete a bank account' })
+    @ApiResponse({
+        status: 204,
+        description: 'No Content',
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized',
+        type: ApiUnauthorizedResponse,
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Bank account not found',
+        type: ApiNotFoundResponse,
+    })
     remove(
         @LoggedUserId() userId: string,
         @Param('bankAccountId', ParseUUIDPipe) bankAccountId: string,
