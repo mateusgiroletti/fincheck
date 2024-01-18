@@ -18,20 +18,29 @@ import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { LoggedUserId } from 'src/shared/decorators/LoggedUserId';
 import { TransactionType } from './entities/Transaction';
 import { OptionalParseEnumParse } from 'src/shared/pipes/OptionalParseEnumParse';
-import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiQuery,
+    ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('transaction')
 @ApiTags('Transactions')
 @ApiBearerAuth()
 export class TransactionController {
-    constructor(private readonly transactionService: TransactionService) { }
+    constructor(private readonly transactionService: TransactionService) {}
 
     @Get()
-    @ApiOperation({summary: 'List logged in user transactions'})
+    @ApiOperation({ summary: 'List logged in user transactions' })
     @ApiQuery({ name: 'month' })
     @ApiQuery({ name: 'year' })
     @ApiQuery({ name: 'bankAccountId', required: false })
-    @ApiQuery({ name: 'transactionType', enum: TransactionType, required: false })
+    @ApiQuery({
+        name: 'transactionType',
+        enum: TransactionType,
+        required: false,
+    })
     findAll(
         @LoggedUserId() userId: string,
         @Query('month', ParseIntPipe) month: number,
@@ -49,7 +58,7 @@ export class TransactionController {
     }
 
     @Post()
-    @ApiOperation({summary: 'Create a transaction for the logged in user'})
+    @ApiOperation({ summary: 'Create a transaction for the logged in user' })
     create(
         @LoggedUserId() userId: string,
         @Body() createTransactionDto: CreateTransactionDto,
@@ -58,7 +67,7 @@ export class TransactionController {
     }
 
     @Put(':transactionId')
-    @ApiOperation({summary: 'Update a transaction for the logged in user'})
+    @ApiOperation({ summary: 'Update a transaction for the logged in user' })
     update(
         @LoggedUserId() userId: string,
         @Param('transactionId', ParseUUIDPipe) transactionId: string,
@@ -73,7 +82,7 @@ export class TransactionController {
 
     @Delete(':transactionId')
     @HttpCode(HttpStatus.NO_CONTENT)
-    @ApiOperation({summary: 'Delete a transaction for the logged in user'})
+    @ApiOperation({ summary: 'Delete a transaction for the logged in user' })
     remove(
         @LoggedUserId() userId: string,
         @Param('transactionId', ParseUUIDPipe) transactionId: string,
