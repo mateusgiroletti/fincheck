@@ -60,15 +60,15 @@ export class TransactionController {
         @LoggedUserId() userId: string,
         @Query('month', ParseIntPipe) month: number,
         @Query('year', ParseIntPipe) year: number,
-        @Query('bankAccountId') bankAccountId?: string,
         @Query('transactionType', new OptionalParseEnumParse(TransactionType))
         transactionType?: TransactionType,
+        @Body() bankAccountId?: string[],
     ) {
         return this.transactionService.findAllByUserId(userId, {
             month,
             year,
-            bankAccountId,
             transactionType,
+            bankAccountId,
         });
     }
 

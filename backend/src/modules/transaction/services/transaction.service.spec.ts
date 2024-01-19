@@ -69,19 +69,20 @@ describe('TransactionService', () => {
     describe('findAllByUserId', () => {
         it('should return all transactions for a given user', async () => {
             const userId = '1';
-            const bankAccountId = '3';
+            const bankAccountId = ['3'];
+
             const filters = {
                 month: 1,
                 year: 2023,
-                bankAccountId: bankAccountId,
                 transactionType: TransactionType.INCOME,
+                bankAccountId,
             };
 
             const mockTransaciton = [
                 {
                     id: '1',
                     userId: '2',
-                    bankAccountId: bankAccountId,
+                    bankAccountId: '3',
                     categoryId: '4',
                     name: 'bank',
                     value: 555.0,
@@ -112,7 +113,7 @@ describe('TransactionService', () => {
                         lt: new Date(Date.UTC(filters.year, filters.month + 1)),
                     },
                     bankAccountId: {
-                        in: ['3'],
+                        in: filters.bankAccountId['bankAccountId'],
                     },
                 },
             });
