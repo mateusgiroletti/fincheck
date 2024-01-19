@@ -21,14 +21,12 @@ export class TransactionService {
         filters: {
             month: number;
             year: number;
-            bankAccountId?: string;
             transactionType?: TransactionType;
+            bankAccountId?: string[];
         },
     ) {
-        const bankAccountId: string[] =
-            filters.bankAccountId?.length !== 0
-                ? filters.bankAccountId?.split(',')
-                : undefined;
+        const filterBankAccountId =
+            filters.bankAccountId['bankAccountId'] ?? undefined;
 
         return this.transactionRepo.findMany({
             where: {
@@ -39,7 +37,7 @@ export class TransactionService {
                     lt: new Date(Date.UTC(filters.year, filters.month + 1)),
                 },
                 bankAccountId: {
-                    in: bankAccountId,
+                    in: filterBankAccountId,
                 },
             },
         });
