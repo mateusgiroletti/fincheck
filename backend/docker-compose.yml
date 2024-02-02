@@ -10,7 +10,6 @@ services:
         command: npm run start:dev
     fincheck-db:
         image: postgres
-        restart: always
         volumes:
             - ./.docker/pg-data:/var/lib/postgresql/data
         environment:
