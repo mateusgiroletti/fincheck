@@ -9,11 +9,12 @@ services:
             - .:/usr/fincheck-app-backend
         command: npm run start:dev
     fincheck-db:
-        image: postgres
+        build: .docker/database
         volumes:
             - ./.docker/pg-data:/var/lib/postgresql/data
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_DB=fincheck
         ports:
-            - "5432:5432"
+            - "5433:5432"
