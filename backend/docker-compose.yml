@@ -1,20 +1,28 @@
 version: '3'
 
 services:
-    fincheck-app-backend:
-        build: .
-        ports:
-            - 3000:3000
-        volumes:
-            - .:/usr/fincheck-app-backend
-        command: npm run start:dev
     fincheck-db:
         build: .docker/database
+        container_name: fincheck-db
+        restart: always
         volumes:
-            - ./.docker/pg-data:/var/lib/postgresql/data
+            - postgres_data:/var/lib/postgresql/data
         environment:
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
-            - POSTGRES_DB=fincheck
+            - POSTGRES_DB=${DB_NAME}
         ports:
-            - "5433:5432"
+            - "${DB_PORT}:5432"
+    fincheck-backend:
+        build: .
+        container_name: fincheck-backend
+        restart: always
+        ports:
+            - 3000:3000
+        command: npm run start:dev
+        depends_on:
+            - fincheck-db
+        volumes:
+            - .:/usr/fincheck-backend
+volumes:
+    postgres_data:

@@ -55,21 +55,21 @@ Start the dockers containers.
 docker-compose up -d
 ```
 
-Change env of DABATESE_HOST to "localhost"
+Change env of DB_HOST to "localhost"
 
-Run the command to create the tables in the database
-
-```console
-npx prisma generate
-```
-
-Run the migrates
+Run the migrates to create the tables in the database
 
 ```console
 npx prisma migrate dev
 ```
 
-Change env of DABATESE_HOST to "fincheck-db" (container name inside docker-compose.yml)
+Run to ensure that categories will be included
+
+```console
+npx prisma db seed  
+```
+
+Change env of DB_HOST to "fincheck-db" (container name inside docker-compose.yml)
 
 Restart docker container:
 
