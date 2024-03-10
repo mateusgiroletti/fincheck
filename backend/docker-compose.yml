@@ -4,7 +4,6 @@ services:
     fincheck-db:
         build: .docker/database
         container_name: fincheck-db
-        restart: always
         volumes:
             - postgres_data:/var/lib/postgresql/data
         environment:
@@ -16,7 +15,6 @@ services:
     fincheck-backend:
         build: .
         container_name: fincheck-backend
-        restart: always
         ports:
             - 3000:3000
         command: npm run start:dev
